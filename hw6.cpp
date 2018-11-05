@@ -77,8 +77,10 @@ bool ifcoll(float t, string obj1, string obj2)
                 if (ct1>ct2 && ct2>0)
                     realt = ct2;
             }
-            if(realt < firstt)
+            if(firstt > realt)
+            {
                 firstt = realt;
+            }
         }
         return true;
     }
@@ -112,7 +114,7 @@ string calColl(float t, string obj1, string obj2)
     float c = x1*x1-2*x1*x2+x2*x2+y1*y1-2*y1*y2+y2*y2-100;
     float delta = b*b-4*a*c;
     float coll = (x1-x2)*(xv1-xv2)+(y1-y2)*(yv1-yv2);
-}
+    }
 
 string calNoColl(float t, string obj1, string obj2)
 {
@@ -192,26 +194,36 @@ int main(int argc, char* argv[])
         else
         {
             realt = *i;
-            for (int j = 0; j < obj_list.size(); j++)
+            for (int j = 0; j < obj_list.size(); j++)//Traverse the object list to get the 1st collision time
+            {
+                for (int k = 1; k < obj_list.size(); k++)
+                {
+                    string object1 = obj_list[j];
+                    string object2 = obj_list[k];
+                    /*if(ifcoll(realt, object1, object2) == true)
+                        cout<<"Collision"<<endl;
+                    else
+                        calNoColl(realt, object1, object2);*/
+                    (ifcoll(realt, object1, object2);
+                }
+            }
+
+            for (int j = 0; j < obj_list.size(); j++)//Traverse the object list to calculate the position
             {
                 for (int k = 1; k < obj_list.size(); k++)
                 {
                     string object1 = obj_list[j];
                     string object2 = obj_list[k];
                     if(ifcoll(realt, object1, object2) == true)
-                    /*if(ifcoll(realt, object1, object2) == true)
                         cout<<"Collision"<<endl;
                     else
-                        calNoColl(realt, object1, object2);*/
-                }
-            }
+                        calNoColl(realt, object1, object2);
         }
         /*for(int n=0;n!=output.size();n++)
         {
             cout<<output[n]<<endl;*/
         }
-    }
-    /*std::cout << *i << ' ';*/
+
     cout << "end"<<endl;
     return 0;
 }
